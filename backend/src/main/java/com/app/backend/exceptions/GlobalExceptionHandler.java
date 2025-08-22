@@ -45,4 +45,15 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
+    @ExceptionHandler(UnAuthorizeExceptionHandler.class)
+    public ResponseEntity<ErrorResponse> unAuthorized(UnAuthorizeExceptionHandler e,HttpServletRequest request){
+        ErrorResponse response=new ErrorResponse(
+          HttpStatus.UNAUTHORIZED.value(),
+          HttpStatus.UNAUTHORIZED.getReasonPhrase(),
+          e.getMessage(),
+          request.getRequestURI(),
+          LocalDateTime.now()
+        );
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+    }
 }
