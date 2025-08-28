@@ -1,7 +1,6 @@
 package com.app.backend.utils;
 
 import com.app.backend.entities.User;
-import com.app.backend.exceptions.UnAuthorizeExceptionHandler;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -35,9 +34,9 @@ public class JWTUtil {
     public String generateToken(User user,Long expirationTime){
         return Jwts
                 .builder()
-                .subject(user.getUsername())
+                .subject(user.getEmail())
                 .claim("id",user.getId())
-                .claim("email",user.getEmail())
+                .claim("username",user.getUsername())
                 .claim("role",user.getRole())
                 .signWith(getSigningKey())
                 .issuedAt(new Date())
@@ -66,11 +65,12 @@ public class JWTUtil {
         return extractClaim(token).getSubject();
     }
 //    validate token
-    public void validateToken(String token){
+    public boolean validateToken(String token){
         try {
-            Jwts.parser().verifyWith(signingKey).build().parseSignedClaims(token);
+            Claims claims=extractClaim(token);
+            return claims.isEmpty();
         } catch (RuntimeException e) {
-            throw new UnAuthorizeExceptionHandler(e.getMessage());
+            return true;
         }
     }
 //    validate token expiration
