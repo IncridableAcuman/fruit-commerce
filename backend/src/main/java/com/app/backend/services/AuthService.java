@@ -62,7 +62,7 @@
             if (refreshToken==null || refreshToken.isEmpty()) {
                 throw new NotFoundExceptionHandler("Token not found");
             }
-            if (!jwtUtil.validateToken(refreshToken)){
+            if (jwtUtil.validateToken(refreshToken)){
                 throw new BadRequestExceptionHandler("Invalid token or expired");
             }
             tokenService.findRefreshToken(refreshToken);
@@ -81,7 +81,7 @@
             if (refreshToken==null || refreshToken.isEmpty()) {
                 throw new NotFoundExceptionHandler("Token not found");
             }
-            if (!jwtUtil.validateToken(refreshToken)){
+            if (jwtUtil.validateToken(refreshToken)){
                 throw new BadRequestExceptionHandler("Invalid token or expired");
             }
             tokenService.findRefreshToken(refreshToken);

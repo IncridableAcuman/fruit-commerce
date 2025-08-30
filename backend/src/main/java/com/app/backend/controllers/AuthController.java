@@ -5,6 +5,7 @@ import com.app.backend.dto.AuthResponse;
 import com.app.backend.dto.RegisterRequest;
 import com.app.backend.services.AuthService;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +18,12 @@ public class AuthController {
 
 //    register
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register( @RequestBody RegisterRequest request, HttpServletResponse response){
+    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request, HttpServletResponse response){
         return ResponseEntity.ok(authService.register(request,response));
     }
 //   login
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request,HttpServletResponse response){
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthRequest request,HttpServletResponse response){
         return ResponseEntity.ok(authService.login(request,response));
     }
 //    refresh
