@@ -68,7 +68,7 @@ public class JWTUtil {
     public boolean validateToken(String token){
         try {
             Claims claims=extractClaim(token);
-            return claims.isEmpty();
+            return claims!=null && validateExpiration(token);
         } catch (RuntimeException e) {
             return true;
         }
