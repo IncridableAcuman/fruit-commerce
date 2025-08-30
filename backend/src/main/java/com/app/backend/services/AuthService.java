@@ -2,6 +2,7 @@
 
     import com.app.backend.dto.AuthRequest;
     import com.app.backend.dto.AuthResponse;
+    import com.app.backend.dto.GetMe;
     import com.app.backend.dto.RegisterRequest;
     import com.app.backend.entities.User;
     import com.app.backend.exceptions.BadRequestExceptionHandler;
@@ -12,6 +13,8 @@
     import jakarta.servlet.http.HttpServletResponse;
     import jakarta.transaction.Transactional;
     import lombok.RequiredArgsConstructor;
+    import org.springframework.security.core.Authentication;
+    import org.springframework.security.core.context.SecurityContextHolder;
     import org.springframework.stereotype.Service;
 
 
@@ -62,7 +65,7 @@
             if (refreshToken==null || refreshToken.isEmpty()) {
                 throw new NotFoundExceptionHandler("Token not found");
             }
-            if (jwtUtil.validateToken(refreshToken)){
+            if (!jwtUtil.validateToken(refreshToken)){
                 throw new BadRequestExceptionHandler("Invalid token or expired");
             }
             tokenService.findRefreshToken(refreshToken);
@@ -81,7 +84,7 @@
             if (refreshToken==null || refreshToken.isEmpty()) {
                 throw new NotFoundExceptionHandler("Token not found");
             }
-            if (jwtUtil.validateToken(refreshToken)){
+            if (!jwtUtil.validateToken(refreshToken)){
                 throw new BadRequestExceptionHandler("Invalid token or expired");
             }
             tokenService.findRefreshToken(refreshToken);
@@ -92,5 +95,11 @@
             User user=userService.findUser(email);
             tokenService.deleteToken(user);
             cookieUtil.clearCookie(response);
+        }
+        @Transactional
+        public GetMe getMe(){
+            Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+            User user = (User) authentication.getPrincipal();
+            return new GetMe(user.getId(),user.getUsername(),user.getRole());
         }
     }

@@ -23,14 +23,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JWTUtil jwtUtil;
     private final CustomUserDetailsService customUserDetailsService;
 
-
+    @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException{
         final String authHeader=request.getHeader("Authorization");
         String jwt=null;
         String email=null;
         if (authHeader!=null && authHeader.startsWith("Bearer ")){
             jwt=authHeader.substring(7);
-            email=jwtUtil.extractSubject(jwt);
+            if (jwtUtil.validateToken(jwt)){
+                email=jwtUtil.extractSubject(jwt);
+            }
         }
         if (email!=null && SecurityContextHolder.getContext().getAuthentication()==null){
             UserDetails userDetails= customUserDetailsService.loadUserByUsername(email);

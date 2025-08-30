@@ -2,6 +2,7 @@ package com.app.backend.controllers;
 
 import com.app.backend.dto.AuthRequest;
 import com.app.backend.dto.AuthResponse;
+import com.app.backend.dto.GetMe;
 import com.app.backend.dto.RegisterRequest;
 import com.app.backend.services.AuthService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,5 +38,9 @@ public class AuthController {
     public ResponseEntity<String> logout(@CookieValue(name = "refreshToken") String refreshToken,HttpServletResponse response){
         authService.logout(refreshToken,response);
         return ResponseEntity.ok("User logged out");
+    }
+    @GetMapping("/me")
+    public ResponseEntity<GetMe> getMe(){
+        return ResponseEntity.ok(authService.getMe());
     }
 }
