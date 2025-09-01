@@ -18,6 +18,5 @@ public class ProductRequest {
     private Double price;
     @NotBlank(message = "Image must be required")
     private String image;
-    @NotBlank(message = "Category must be required")
     private Category category;
 }

@@ -32,7 +32,6 @@ public class Product {
     @Column(name = "image",nullable = false)
     private String image;
 
-    @Column(name = "category",nullable = false)
     @Enumerated(EnumType.STRING)
     private Category category;
 
