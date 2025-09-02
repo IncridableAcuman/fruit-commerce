@@ -18,9 +18,7 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
 
-//    create product only admin
-    @Transactional
-    public ProductResponse createProduct(ProductRequest request){
+    public Product create(ProductRequest request){
         Product product=new Product();
         product.setTitle(request.getTitle());
         product.setDescription(request.getDescription());
@@ -28,7 +26,9 @@ public class ProductService {
         product.setImage(request.getImage());
         product.setCategory(request.getCategory());
         product.setCreatedAt(LocalDateTime.now());
-        productRepository.save(product);
+        return productRepository.save(product);
+    }
+    public ProductResponse productResponse(Product product){
         return new ProductResponse(
                 product.getId(),
                 product.getTitle(),
@@ -37,38 +37,26 @@ public class ProductService {
                 product.getImage(),
                 product.getCategory(),
                 product.getCreatedAt()
-                );
+        );
+    }
+//    create product only admin
+    @Transactional
+    public ProductResponse createProduct(ProductRequest request){
+        Product product=create(request);
+        return productResponse(product);
     }
 //    get product all
     @Transactional
     public List<ProductResponse> getAllProducts(){
         List<Product> products=productRepository.findAll();
-        return products.stream().map(product ->
-                new ProductResponse(
-                        product.getId(),
-                        product.getTitle(),
-                        product.getDescription(),
-                        product.getPrice(),
-                        product.getImage(),
-                        product.getCategory(),
-                        product.getCreatedAt()
-                        )).toList();
+        return products.stream().map(this::productResponse).toList();
     }
 
 //    get product by category
     @Transactional
     public List<ProductResponse> getAllProductsByCategory(Category category){
         List<Product> products = productRepository.findByCategory(category);
-        return products.stream().map(product ->
-                new ProductResponse(
-                        product.getId(),
-                        product.getTitle(),
-                        product.getDescription(),
-                        product.getPrice(),
-                        product.getImage(),
-                        product.getCategory(),
-                        product.getCreatedAt()
-                )).toList();
+        return products.stream().map(this::productResponse).toList();
     }
 //    delete product only admin
     @Transactional
@@ -84,21 +72,7 @@ public class ProductService {
         Product product=productRepository.
                 findById(id).
                 orElseThrow(()->new NotFoundExceptionHandler("Product not found"));
-        product.setTitle(request.getTitle());
-        product.setDescription(request.getDescription());
-        product.setPrice(request.getPrice());
-        product.setImage(request.getImage());
-        product.setCategory(request.getCategory());
-        product.setCreatedAt(LocalDateTime.now());
-        productRepository.save(product);
-        return new ProductResponse(
-                product.getId(),
-                product.getTitle(),
-                product.getDescription(),
-                product.getPrice(),
-                product.getImage(),
-                product.getCategory(),
-                product.getCreatedAt()
-        );
+        create(request);
+        return productResponse(product);
     }
 }

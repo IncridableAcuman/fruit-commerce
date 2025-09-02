@@ -30,8 +30,8 @@ public class ProductController {
         return ResponseEntity.status(200).body(productService.getAllProducts());
     }
 //    get product by category
-    @GetMapping("/data/category/all")
-    public ResponseEntity<List<ProductResponse>> getAllProductsByCategory(@RequestBody Category category){
+    @GetMapping("/categories/{category}")
+    public ResponseEntity<List<ProductResponse>> getAllProductsByCategory(@PathVariable Category category){
         return ResponseEntity.status(200).body(productService.getAllProductsByCategory(category));
     }
 //    delete product only admin
