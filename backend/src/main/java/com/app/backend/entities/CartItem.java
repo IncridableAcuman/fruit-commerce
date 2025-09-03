@@ -1,7 +1,6 @@
 package com.app.backend.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,4 +13,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CartItem {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    private Product product;
+
+    private Integer quantity;
+
+    @OneToMany
+    private Cart cart;
 }
