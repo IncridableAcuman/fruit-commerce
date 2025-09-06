@@ -19,21 +19,15 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "title",nullable = false)
     private String title;
-
     @Column(name = "description",nullable = false)
     private String description;
-
     @Column(name = "price",nullable = false)
     private Double price;
-
     @Column(name = "image",nullable = false)
     private String image;
-
     @Enumerated(EnumType.STRING)
     private Category category;
-
     private LocalDateTime createdAt;
 }

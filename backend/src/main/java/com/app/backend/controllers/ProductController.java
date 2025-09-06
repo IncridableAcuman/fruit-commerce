@@ -34,6 +34,10 @@ public class ProductController {
     public ResponseEntity<List<ProductResponse>> getAllProductsByCategory(@PathVariable Category category){
         return ResponseEntity.status(200).body(productService.getAllProductsByCategory(category));
     }
+    @GetMapping("/product/{id}")
+    public ResponseEntity<ProductResponse> getProductByID(@PathVariable Long id){
+        return ResponseEntity.status(200).body(productService.getProductByID(id));
+    }
 //    delete product only admin
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/product/delete/{id}")

@@ -18,6 +18,7 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
 
+    @Transactional
     public Product create(ProductRequest request){
         Product product=new Product();
         product.setTitle(request.getTitle());
@@ -28,6 +29,7 @@ public class ProductService {
         product.setCreatedAt(LocalDateTime.now());
         return productRepository.save(product);
     }
+    @Transactional
     public ProductResponse productResponse(Product product){
         return new ProductResponse(
                 product.getId(),
@@ -57,6 +59,15 @@ public class ProductService {
     public List<ProductResponse> getAllProductsByCategory(Category category){
         List<Product> products = productRepository.findByCategory(category);
         return products.stream().map(this::productResponse).toList();
+    }
+//    get product by id
+    @Transactional
+    public ProductResponse getProductByID(Long id){
+        Product product=productRepository.
+                findById(id).
+                orElseThrow(()->new NotFoundExceptionHandler("Product not found"));
+        return productResponse(product);
+
     }
 //    delete product only admin
     @Transactional

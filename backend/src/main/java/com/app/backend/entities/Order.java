@@ -6,22 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Entity
-@Table(name = "tokens")
-@NoArgsConstructor
+@Table(name = "orders")
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-public class Token {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
-    private User user;
-    @Column(nullable = false,unique = true)
-    private String refreshToken;
-    private LocalDateTime expiryDate;
-
 }
