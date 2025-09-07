@@ -16,10 +16,14 @@ public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     private Product product;
-    private Integer quantity;
+
     @ManyToOne
     @JoinColumn(name = "cart_id")
     private Cart cart;
+    
+    private Integer quantity;
+
 }

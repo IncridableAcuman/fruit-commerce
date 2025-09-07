@@ -6,10 +6,7 @@ import com.app.backend.utils.CartMapper;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/carts")
@@ -20,7 +17,9 @@ public class CartController
     private final CartMapper cartMapper;
 
     @GetMapping("/cart/{userId}")
-    public ResponseEntity<CartData> getCartForUser(@PathVariable Long userId){
-        return ResponseEntity.status(200).body(cartMapper.cartData(cartService.getCartForUser(userId)));
+    public ResponseEntity<CartData> getCartForUser(@PathVariable Long userId){return ResponseEntity.status(200).body(cartMapper.cartData(cartService.getCartForUser(userId)));}
+    @PostMapping("/cart/add")
+    public ResponseEntity<CartData> addToCart(@RequestParam Long userId,Long productId,int quantity){
+        return ResponseEntity.status(200).body(cartMapper.cartData(cartService.addToCart(userId,productId,quantity)));
     }
 }
