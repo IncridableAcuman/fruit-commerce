@@ -21,6 +21,7 @@ public class Cart {
     @OneToOne
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
-    @ManyToOne
+    @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<CartItem> cartItems;
+    private Double total;
 }
