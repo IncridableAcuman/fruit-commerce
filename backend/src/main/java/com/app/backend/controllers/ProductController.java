@@ -18,37 +18,21 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-//    create product only admin
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/product/create")
-    public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductRequest request){
-        return ResponseEntity.status(201).body(productService.createProduct(request));
-    }
-//    get product all
+    public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductRequest request){return ResponseEntity.status(201).body(productService.createProduct(request));}
     @GetMapping("/data/all")
-    public ResponseEntity<List<ProductResponse>> getAllProducts(){
-        return ResponseEntity.status(200).body(productService.getAllProducts());
-    }
-//    get product by category
+    public ResponseEntity<List<ProductResponse>> getAllProducts(){return ResponseEntity.status(200).body(productService.getAllProducts());}
     @GetMapping("/categories/{category}")
-    public ResponseEntity<List<ProductResponse>> getAllProductsByCategory(@PathVariable Category category){
-        return ResponseEntity.status(200).body(productService.getAllProductsByCategory(category));
-    }
+    public ResponseEntity<List<ProductResponse>> getAllProductsByCategory(@PathVariable Category category){return ResponseEntity.status(200).body(productService.getAllProductsByCategory(category));}
     @GetMapping("/product/{id}")
-    public ResponseEntity<ProductResponse> getProductByID(@PathVariable Long id){
-        return ResponseEntity.status(200).body(productService.getProductByID(id));
-    }
-//    delete product only admin
+    public ResponseEntity<ProductResponse> getProductByID(@PathVariable Long id){return ResponseEntity.status(200).body(productService.getProductByID(id));}
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/product/delete/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable Long id){
         productService.deleteProduct(id);
-        return ResponseEntity.status(200).body("Product deleted successfully");
-    }
-//    update product only admin
+        return ResponseEntity.status(200).body("Product deleted successfully");}
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/product/update/{id}")
-    public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id,@Valid @RequestBody ProductRequest request){
-        return ResponseEntity.status(200).body(productService.updateProduct(id,request));
-    }
+    public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id,@Valid @RequestBody ProductRequest request){return ResponseEntity.status(200).body(productService.updateProduct(id,request));}
 }
