@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+.bg-image{
+    background-image: url("../public/fruits.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+}

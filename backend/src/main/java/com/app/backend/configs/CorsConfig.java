@@ -19,7 +19,7 @@ public class CorsConfig {
         CorsConfiguration config=new CorsConfiguration();
         config.setAllowCredentials(true);
         config.setAllowedMethods(List.of("POST","GET","PUT","DELETE","OPTIONS"));
-        config.setAllowedOrigins(List.of("http://localhost:5173"));
+        config.setAllowedOrigins(List.of("http://localhost:5173","http://localhost:5174"));
         config.setExposedHeaders(List.of("*"));
         config.setAllowedHeaders(List.of("*"));
         source.registerCorsConfiguration("/**",config);
