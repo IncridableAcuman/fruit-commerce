@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import { Star, StarHalf } from "lucide-react";
+import Footer from "../components/Footer";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -60,6 +62,38 @@ const Home = () => {
           ))}
         </div>
       </div>
+      <div className="w-full max-w-6xl mx-auto">
+        <h1 className="text-2xl font-semibold py-5">Top dishes near you</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+          <div className="bg-white shadow-md roounded hover:shadow-lg transition duration-300">
+            <img src="./food_1.png" alt="food" className="rounded-t-2xl" />
+            {/* content */}
+            <div className="flex items-center justify-between p-4">
+              <h2 className="text-lg font-semibold">Greek salad</h2>
+              <div className="flex items-center gap-2">
+                <Star size={15} className="text-yellow-300" />
+                <Star size={15} className="text-yellow-300" />
+                <Star size={15} className="text-yellow-300" />
+                <Star size={15} className="text-yellow-300" />
+                <StarHalf size={15} className="text-yellow-300" />
+              </div>
+            </div>
+            {/* content */}
+          <p className="text-xs p-4 text-gray-500">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis, laudantium.</p>
+          <h1 className="text-2xl text-green-600 px-3 py-3">12$</h1>
+          </div>
+        </div>
+      </div>
+      {/*  */}
+      <div className="text-center py-5">
+        <h1 className="text-3xl lg:text-5xl font-bold">For Better Expirence Download <br /> Commerce App</h1>
+        <div className="flex items-center justify-center gap-3 py-5">
+          <img src="./app_store.png" alt="app store" />
+          <img src="play_store.png" alt="play store" />
+        </div>
+      </div>
+      {/* footer */}
+      <Footer/>
     </>
   );
 };
