@@ -1,5 +1,5 @@
 import { Lock, Mail, Send, User } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axiosInstance from '../api/axiosInstance';
@@ -17,6 +17,7 @@ const Login = () => {
       try {
         const {data} = await axiosInstance.post("/auth/register",{username,email,password});
         localStorage.setItem("accessToken",data.accessToken);
+        toast.success("Successfully.");
         if(data){
           navigate("/");
         }
@@ -28,6 +29,7 @@ const Login = () => {
       try {
         const {data} = await axiosInstance.post("/auth/login",{email,password});
         localStorage.setItem("accessToken",data.accessToken);
+        toast.success("Successfully.");
         if(data){
           navigate("/");
         }
@@ -37,6 +39,12 @@ const Login = () => {
       }
     }
   }
+
+  useEffect(()=>{
+      if(localStorage.getItem("accessToken")){
+          navigate("/");
+      }
+  },[navigate]);
 
   return (
     <>

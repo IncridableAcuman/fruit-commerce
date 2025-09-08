@@ -29,7 +29,7 @@ public class UserService {
     public User findUser(String email){return userRepository.findByEmail(email).orElseThrow(()->new NotFoundExceptionHandler("User not found"));}
     @Transactional
     public void validatePassword(String password,String userPassword){
-        if (!passwordEncoder.matches(password,userPassword)){throw new BadRequestExceptionHandler("Password is not equal");}}
+        if (!passwordEncoder.matches(password,userPassword)){throw new BadRequestExceptionHandler("Password is not error");}}
     @Transactional
     public void updatePassword(User user,String password){
         user.setPassword(passwordEncoder.encode(password));

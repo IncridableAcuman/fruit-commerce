@@ -81,8 +81,7 @@
             return "Reset password link sent to email.";}
         @Transactional
         public String resetPassword(ResetPasswordRequest request){
-            if (!request.getToken().startsWith("Bearer ")){throw new BadRequestExceptionHandler("Invalid token");}
-            if (!jwtUtil.validateToken(request.getToken())){throw new BadRequestExceptionHandler("Token invalid or expired");}
+            if (request.getToken()==null){throw new BadRequestExceptionHandler("Invalid token");}
             String email= jwtUtil.extractSubject(request.getToken());
             User user=userService.findUser(email);
             userService.updatePassword(user,request.getPassword());
