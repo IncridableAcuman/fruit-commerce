@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import { Star, StarHalf } from "lucide-react";
+import { Star } from "lucide-react";
 import Footer from "../components/Footer";
 
 const Home = () => {
@@ -15,6 +15,7 @@ const Home = () => {
     { name: "Pure Veg", image: "/menu_6.png" },
     { name: "Pasta", image: "/menu_7.png" },
     { name: "Noodles", image: "/menu_8.png" },
+    
   ];
 
   useEffect(() => {
@@ -29,15 +30,15 @@ const Home = () => {
       <div className="w-full max-w-6xl mx-auto pt-24 text-white relative">
         <img src="/header_img.png" alt="header image" className="w-full" />
         <div className="absolute top-1/3 left-10">
-          <h2 className="text-3xl lg:text-5xl font-semibold">Order your</h2>
-          <h2 className="text-3xl lg:text-5xl font-semibold pb-3">
+          <h2 className="text-2xl lg:text-5xl font-semibold">Order your</h2>
+          <h2 className="text-2xl lg:text-5xl font-semibold pb-3">
             favourite food here
           </h2>
-          <p className="max-w-md pb-5">
+          <p className="max-w-md pb-2 md:pb-5 text-xs md:text-sm">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est
             aperiam corrupti dolores temporibus sunt soluta numquam.
           </p>
-          <button className="bg-white text-black px-5 py-2.5 rounded-full shadow cursor-pointer hover:bg-gray-50 transition duration-300">
+          <button className="bg-white text-black px-5 py-1.5 md:py-2.5 rounded-full shadow cursor-pointer hover:bg-gray-50 transition duration-300">
             View Menu
           </button>
         </div>
@@ -49,9 +50,9 @@ const Home = () => {
           Lorem ipsum dolor sit amet consectetur adipisicing elit.
         </p>
 
-        <div className="flex items-center justify-between gap-6 mt-6">
+        <div className="flex items-center justify-between gap-6 mt-6 overflow-x-auto scrolly">
           {menuImages.map((item, index) => (
-            <div key={index} className="flex flex-col items-center">
+            <div key={index} className="flex flex-col items-center flex-shrink-0">
               <img
                 src={item.image}
                 alt={item.name}
@@ -75,12 +76,12 @@ const Home = () => {
                 <Star size={15} className="text-yellow-300" />
                 <Star size={15} className="text-yellow-300" />
                 <Star size={15} className="text-yellow-300" />
-                <StarHalf size={15} className="text-yellow-300" />
+                <Star size={15} className="text-gray-500"  />
               </div>
             </div>
             {/* content */}
-          <p className="text-xs p-4 text-gray-500">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis, laudantium.</p>
-          <h1 className="text-2xl text-green-600 px-3 py-3">12$</h1>
+          <p className="text-sm p-4 text-gray-500">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis, laudantium.</p>
+          <h1 className="text-2xl text-green-600 px-3 pb-3">12$</h1>
           </div>
         </div>
       </div>

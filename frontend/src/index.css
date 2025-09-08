@@ -9,3 +9,11 @@
 .padd{
     padding: 30px 10%;
 }
+
+.scrolly::-webkit-scrollbar{
+    display: none;
+}
+.scrolly{
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
