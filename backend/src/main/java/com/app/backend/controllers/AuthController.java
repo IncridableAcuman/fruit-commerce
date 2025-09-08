@@ -18,7 +18,8 @@ public class AuthController {
         return ResponseEntity.ok(authService.register(request,response));}
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthRequest request,HttpServletResponse response){
-        return ResponseEntity.ok(authService.login(request,response));}
+        return ResponseEntity.ok(authService.login(request,response));
+    }
     @GetMapping("/refresh")
     public ResponseEntity<AuthResponse> refresh(@CookieValue(name = "refreshToken") String refreshToken,HttpServletResponse response){
         return ResponseEntity.ok(authService.refresh(refreshToken,response));}
