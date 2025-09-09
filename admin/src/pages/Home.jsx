@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
 
 const Home = () => {
       const navigate = useNavigate();
@@ -13,8 +11,7 @@ const Home = () => {
     },[navigate]);
   return (
     <>
-    <Navbar/>
-    <Sidebar/>
+    a
     </>
   )
 }

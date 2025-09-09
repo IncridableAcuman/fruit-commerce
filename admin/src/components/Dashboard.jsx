@@ -2,7 +2,44 @@ import React from 'react'
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <div className='w-full max-w-md'>
+      <form className='space-y-4'>
+        <div className="flex flex-col">
+          <label className='pb-2'>Product Title</label>
+          <input type="text" placeholder='Title'
+          className='outline-none border p-2 bg-transparent w-full'
+           required />
+        </div>
+        {/* description */}
+        <div className="flex flex-col">
+          <label className='pb-2'>Product Description</label>
+          <textarea type="text" placeholder='Title'
+          className='outline-none border p-2 bg-transparent w-full'
+           required />
+        </div>
+        {/* description */}
+        <div className="flex items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10">
+          <div className="flex flex-col">
+            <label htmlFor="Category" className='pb-2'>Product category</label>
+            <select name="category" id="category" className='border p-2'>
+            <option value="">Select option</option>
+            <option value="Salad">Salad</option>
+            <option value="Rolls">Rolls</option>
+            <option value="Deserts">Deserts</option>
+            <option value="Sandwich">Sandwich</option>
+            <option value="Cake">Cake</option>
+            <option value="PureVeg">PureVeg</option>
+            <option value="Pasta">Pasta</option>
+            <option value="Noodles">Noodles</option>
+          </select>
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="Price" className='pb-2'>Product price</label>
+            <input type="number" placeholder='Price' className='outline-none border p-2 bg-transparent w-full' />
+          </div>
+        </div>
+      </form>
+    </div>
   )
 }
 
