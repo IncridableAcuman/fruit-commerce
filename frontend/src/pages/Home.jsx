@@ -1,22 +1,32 @@
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import { Star } from "lucide-react";
+import { Star,CirclePlus,CircleMinus   } from "lucide-react";
 import Footer from "../components/Footer";
 
 const Home = () => {
   const navigate = useNavigate();
+  const [counts,setCounts]=useState({});
+  const [selectedMenu,setSelectedMenu]=useState(null);
   const menuImages = [
-    { name: "Salad", image: "/menu_1.png" },
-    { name: "Rolls", image: "/menu_2.png" },
-    { name: "Deserts", image: "/menu_3.png" },
-    { name: "Sandwich", image: "/menu_4.png" },
-    { name: "Cake", image: "/menu_5.png" },
-    { name: "Pure Veg", image: "/menu_6.png" },
-    { name: "Pasta", image: "/menu_7.png" },
-    { name: "Noodles", image: "/menu_8.png" },
+    { id:1, name: "Salad", image: "/menu_1.png" },
+    { id:2, name: "Rolls", image: "/menu_2.png" },
+    { id:3, name: "Deserts", image: "/menu_3.png" },
+    { id:4, name: "Sandwich", image: "/menu_4.png" },
+    { id:5, name: "Cake", image: "/menu_5.png" },
+    { id:6, name: "Pure Veg", image: "/menu_6.png" },
+    { id:7, name: "Pasta", image: "/menu_7.png" },
+    { id:8, name: "Noodles", image: "/menu_8.png" },
     
   ];
+
+  const handleIncrease = (id)=>{
+    setCounts((prev)=>({...prev,[id]:(prev[id] || 0)+1}));
+  }
+
+  const handleDescrease = (id)=>{
+    setCounts((prev)=>({...prev,[id]:Math.max((prev[id] || 0)-1,0)}));
+  }
 
   useEffect(() => {
     if (!localStorage.getItem("accessToken")) {
@@ -52,22 +62,37 @@ const Home = () => {
 
         <div className="flex items-center justify-between gap-6 mt-6 overflow-x-auto scrolly">
           {menuImages.map((item, index) => (
-            <div key={index} className="flex flex-col items-center flex-shrink-0">
+            <div key={index} 
+            className="flex flex-col items-center flex-shrink-0"
+            onClick={()=>setSelectedMenu(selectedMenu===index ? null : index)}
+            >
               <img
                 src={item.image}
                 alt={item.name}
-                className="w-24 h-24 object-contain"
+                className={`w-24 h-24 object-contain ${selectedMenu===index ? " border-4 border-green-700 rounded-full transition duration-300":"border-none transition duration-300"}`}
               />
               <p className="mt-2 font-medium">{item.name}</p>
             </div>
           ))}
         </div>
       </div>
+      {/* card */}
       <div className="w-full max-w-6xl mx-auto">
         <h1 className="text-2xl font-semibold py-5">Top dishes near you</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-          <div className="bg-white shadow-md roounded hover:shadow-lg transition duration-300">
-            <img src="./food_1.png" alt="food" className="rounded-t-2xl" />
+          <div className="bg-white shadow-md rounded hover:shadow-lg transition duration-300">
+            <div className="relative">
+            <img src="./food_1.png" alt="food" className="rounded-t-2xl w-full" />
+              <div className="absolute top-40 right-3 flex items-center gap-3 bg-white py-2 px-3 rounded-full shadow-md text-green-600">
+                <button className="cursor-pointer text-green-800">
+                  <CircleMinus size={18} onClick={()=>handleDescrease()} />
+                </button>
+                  <p>{counts[0] || 0}</p>
+                <button className="cursor-pointer">
+                  <CirclePlus size={18} onClick={()=>handleIncrease()} />
+                </button>      
+              </div>
+            </div>
             {/* content */}
             <div className="flex items-center justify-between p-4">
               <h2 className="text-lg font-semibold">Greek salad</h2>

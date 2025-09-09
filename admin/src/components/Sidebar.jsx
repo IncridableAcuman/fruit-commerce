@@ -13,7 +13,7 @@ const Sidebar = () => {
             {
                 menuItems.map((item,index)=>(
                     <div className={`flex items-center gap-3 text-sm md:text-lg p-2 border-y border-l
-                     cursor-pointer ${state ? "bg-green-500 text-white transition duration-300": null}`} key={index} onClick={()=>setState(!state)}>
+                     cursor-pointer ${state ? "bg-green-500 text-white transition duration-300": "bg-white transition duration-300"}`} key={index} onClick={()=>setState(!state)}>
                         {item.icon}
                         {item.title}
                     </div>
