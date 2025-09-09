@@ -1,6 +1,16 @@
 import { Lock, Mail, Send } from 'lucide-react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        if(localStorage.getItem("accessToken")){
+            navigate("/");
+        }
+    },[navigate]);
+
   return (
     <>
     <div className="w-full h-screen bg-image">

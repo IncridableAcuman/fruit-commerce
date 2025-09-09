@@ -1,5 +1,6 @@
 package com.app.backend.enums;
 
 public enum Category {
-    FRUITS,VEGETABLES
+    Salad,Rolls,Deserts,Sandwich,
+    Cake,PureVeg,Pasta,Noodles
 }
