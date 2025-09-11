@@ -80,9 +80,10 @@ const Home = () => {
       <div className="w-full max-w-6xl mx-auto">
         <h1 className="text-2xl font-semibold py-5">Top dishes near you</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-          <div className="bg-white shadow-md rounded hover:shadow-lg transition duration-300">
+          <div className="bg-white shadow-md rounded transition-transform duration-500 ease-in-out hover:scale-110">
             <div className="relative">
-            <img src="./food_1.png" alt="food" className="rounded-t-2xl w-full" />
+            <img src="./food_1.png" alt="food" 
+            className="rounded-t-2xl w-full" />
               <div className="absolute top-40 right-3 flex items-center gap-3 bg-white py-2 px-3 rounded-full shadow-md text-green-600">
                 <button className="cursor-pointer text-green-800">
                   <CircleMinus size={18} onClick={()=>handleDescrease()} />
