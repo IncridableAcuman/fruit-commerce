@@ -27,7 +27,13 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors->cors.configurationSource(corsConfig.corsConfigurationSource()))
                 .authorizeHttpRequests(auth->auth
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers(
+                                "/api/auth/**",
+                        "/api/products/data/all",
+                        "/api/products/categories/**",
+                        "/api/product/product/**",
+                        "/uploads/**"
+                        ).permitAll()
                         .requestMatchers("/api/products/product/create",
                                 "/api/products/product/update/**",
                                 "/api/products/product/delete/**").hasRole("ADMIN")

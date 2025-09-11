@@ -1,13 +1,16 @@
 import { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import { Star,CirclePlus,CircleMinus   } from "lucide-react";
+import { Star,CirclePlus,CircleMinus, StarHalf   } from "lucide-react";
 import Footer from "../components/Footer";
+import { toast } from "react-toastify";
+import axiosInstance from "../api/axiosInstance";
 
 const Home = () => {
   const navigate = useNavigate();
   const [counts,setCounts]=useState({});
   const [selectedMenu,setSelectedMenu]=useState(null);
+  const [products,setProducts]=useState([]);
   const menuImages = [
     { id:1, name: "Salad", image: "/menu_1.png" },
     { id:2, name: "Rolls", image: "/menu_2.png" },
@@ -19,6 +22,15 @@ const Home = () => {
     { id:8, name: "Noodles", image: "/menu_8.png" },
     
   ];
+
+  const getProducts = async ()=>{
+    try {
+      const {data} = await axiosInstance.get("/products/data/all");
+      setProducts(data);
+    } catch (error) {
+      toast.error(error.message || "Network Error");
+    }
+  }
 
   const handleIncrease = (id)=>{
     setCounts((prev)=>({...prev,[id]:(prev[id] || 0)+1}));
@@ -33,6 +45,10 @@ const Home = () => {
       navigate("/login");
     }
   }, [navigate]);
+
+  useEffect(()=>{
+        getProducts();
+  },[]);
 
   return (
     <>
@@ -80,35 +96,43 @@ const Home = () => {
       <div className="w-full max-w-6xl mx-auto">
         <h1 className="text-2xl font-semibold py-5">Top dishes near you</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-          <div className="bg-white shadow-md rounded  hover:shadow-lg transition duration-300">
-            <div className="relative">
-            <img src="./food_1.png" alt="food" 
-            className="rounded-t-2xl w-full" />
-              <div className="absolute top-40 right-3 flex items-center gap-3 bg-white py-2 px-3 rounded-full shadow-md text-green-600">
-                <button className="cursor-pointer text-green-800">
-                  <CircleMinus size={18} onClick={()=>handleDescrease()} />
-                </button>
-                  <p>{counts[0] || 0}</p>
-                <button className="cursor-pointer">
-                  <CirclePlus size={18} onClick={()=>handleIncrease()} />
-                </button>      
+          {
+            products.map((item)=>(
+              <div key={item?.id} className="bg-white shadow-md rounded  hover:shadow-lg transition duration-300">
+              <div className="relative">
+              <img src={`http://localhost:8080${item?.image}`} alt={item?.title} 
+              className="rounded-t-2xl w-full" />
+                <div className="absolute top-40 right-3 flex items-center gap-3 bg-white py-2 px-3 rounded-full shadow-md text-green-600">
+                  <button className="cursor-pointer text-green-800">
+                    <CircleMinus size={18} onClick={()=>handleDescrease(item?.id)} />
+                  </button>
+                    <p>{counts[item?.id] || 0}</p>
+                  <button className="cursor-pointer">
+                    <CirclePlus size={18} onClick={()=>handleIncrease(item?.id)} />
+                  </button>      
+                </div>
               </div>
-            </div>
-            {/* content */}
-            <div className="flex items-center justify-between p-4">
-              <h2 className="text-lg font-semibold">Greek salad</h2>
-              <div className="flex items-center gap-2">
-                <Star size={15} className="text-yellow-300" />
-                <Star size={15} className="text-yellow-300" />
-                <Star size={15} className="text-yellow-300" />
-                <Star size={15} className="text-yellow-300" />
-                <Star size={15} className="text-gray-500"  />
+              {/* content */}
+              <div className="flex items-center justify-between p-4">
+                <h2 className="text-lg font-semibold">{item?.title}</h2>
+                <p className="text-gray-500 text-sm">{item?.category}</p>
               </div>
+              <div className="flex items-center justify-between gap-3 px-4">
+                <div className="flex items-center gap-3">
+                      <Star size={15} className="text-yellow-300" />
+                      <Star size={15} className="text-yellow-300" />
+                      <Star size={15} className="text-yellow-300" />
+                      <Star size={15} className="text-yellow-300" />
+                       <StarHalf size={15} />
+                </div>
+                <p className="text-gray-400">(4)</p>
+              </div>
+              {/* content */}
+            <p className="text-sm p-4 text-gray-500">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis, laudantium.</p>
+            <h1 className="text-2xl text-green-600 px-3 pb-3">{item?.price}$</h1>
             </div>
-            {/* content */}
-          <p className="text-sm p-4 text-gray-500">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis, laudantium.</p>
-          <h1 className="text-2xl text-green-600 px-3 pb-3">12$</h1>
-          </div>
+            ))
+          }
         </div>
       </div>
       {/*  */}
