@@ -4,12 +4,18 @@ import com.app.backend.dto.ProductRequest;
 import com.app.backend.dto.ProductResponse;
 import com.app.backend.entities.Product;
 import com.app.backend.enums.Category;
+import com.app.backend.exceptions.BadRequestExceptionHandler;
 import com.app.backend.exceptions.NotFoundExceptionHandler;
 import com.app.backend.repositories.ProductRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,15 +24,32 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
 
+    @Value("$file.upload-dir}")
+    private String uploadDir;
+
+    public String saveFile(MultipartFile file){
+        try {
+            String fileName=System.currentTimeMillis()+file.getOriginalFilename();
+            Path filePath= Paths.get(uploadDir,fileName);
+            Files.write(filePath,file.getBytes());
+            return "/uploads/"+fileName;
+        } catch (Exception e) {
+            throw new BadRequestExceptionHandler("Failed to store file: "+e.getMessage());
+        }
+    }
+
     @Transactional
     public Product create(ProductRequest request){
         Product product=new Product();
         product.setTitle(request.getTitle());
         product.setDescription(request.getDescription());
         product.setPrice(request.getPrice());
-        product.setImage(request.getImage());
         product.setCategory(request.getCategory());
         product.setCreatedAt(LocalDateTime.now());
+        if(request.getImage()!=null && !request.getImage().isEmpty()){
+            String imageUrl=saveFile(request.getImage());
+            product.setImage(imageUrl);
+        }
         return productRepository.save(product);
     }
     @Transactional

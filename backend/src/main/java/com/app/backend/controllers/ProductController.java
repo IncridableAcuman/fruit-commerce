@@ -20,7 +20,7 @@ public class ProductController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/product/create")
-    public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductRequest request){return ResponseEntity.status(201).body(productService.createProduct(request));}
+    public ResponseEntity<ProductResponse> createProduct(@Valid @ModelAttribute ProductRequest request){return ResponseEntity.status(201).body(productService.createProduct(request));}
     @GetMapping("/data/all")
     public ResponseEntity<List<ProductResponse>> getAllProducts(){return ResponseEntity.status(200).body(productService.getAllProducts());}
     @GetMapping("/categories/{category}")

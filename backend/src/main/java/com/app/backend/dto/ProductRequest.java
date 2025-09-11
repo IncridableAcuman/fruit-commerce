@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class ProductRequest {
@@ -17,6 +18,6 @@ public class ProductRequest {
     @NotNull(message = "Price must be required")
     private Double price;
     @NotBlank(message = "Image must be required")
-    private String image;
+    private MultipartFile image;
     private Category category;
 }

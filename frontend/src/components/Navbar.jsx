@@ -26,14 +26,14 @@ const Navbar = () => {
       <div className="text-2xl font-semibold text-green-600 cursor-pointer
        hover:text-green-900 transition duration-300" onClick={()=>navigate("/")}>Logo</div>
 
-      <div className="hidden md:flex items-center gap-3 text-green-600">
+      <div className="hidden md:flex items-center gap-3 text-green-900">
         <Link className='hover:text-green-700 transition duration-300'>Home</Link>
         <Link className='hover:text-green-700 transition duration-300'>Menu</Link>
         <Link to={"/contact"} className='hover:text-green-700 transition duration-300'>Contact Us</Link>
       </div>
 
       <div className="flex items-center gap-3 lg:gap-5">
-        <Search className='text-green-700 cursor-pointer relative' 
+        <Search className='text-green-900 cursor-pointer relative' 
         onClick={()=>setState(!state)}/>
         {
           state && (
@@ -43,12 +43,12 @@ const Navbar = () => {
           )
         }
         <ShoppingBasket 
-        className='text-green-700 cursor-pointer'
+        className='text-green-900 cursor-pointer'
         onClick={()=>navigate("/cart")}
         />
-         <LogOut className='text-green-700 cursor-pointer' onClick={handleSubmit} />
+         <LogOut className='text-green-900 cursor-pointer' onClick={handleSubmit} />
         <button 
-        className='md:hidden text-green-600 cursor-pointer transition duration-300'
+        className='md:hidden text-green-900 cursor-pointer transition duration-300'
         onClick={()=>setIsOpen(!isOpen)} 
         aria-label={"Toggle menu"}>
           {isOpen ? <X/> : <Menu/>}
