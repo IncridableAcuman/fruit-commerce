@@ -29,7 +29,7 @@ const Navbar = () => {
       <div className="hidden md:flex items-center gap-3 text-green-600">
         <Link className='hover:text-green-700 transition duration-300'>Home</Link>
         <Link className='hover:text-green-700 transition duration-300'>Menu</Link>
-        <Link className='hover:text-green-700 transition duration-300'>Contact Us</Link>
+        <Link to={"/contact"} className='hover:text-green-700 transition duration-300'>Contact Us</Link>
       </div>
 
       <div className="flex items-center gap-3 lg:gap-5">
@@ -63,7 +63,7 @@ const Navbar = () => {
           <Link onClick={()=>setIsOpen(false)}
           className='text-green-600 hover:text-green-800 transition duration-300'
           >Menu</Link>
-          <Link onClick={()=>setIsOpen(false)}
+          <Link to={"/contact"} onClick={()=>setIsOpen(false)}
           className='text-green-600 hover:text-green-800 transition duration-300'
           >Contact Us</Link>
         </div>

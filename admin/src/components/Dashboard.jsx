@@ -34,8 +34,8 @@ const Dashboard = () => {
            required />
         </div>
         {/* description */}
-        <div className="flex items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10">
-          <div className="flex flex-col">
+        <div className="flex flex-col md:flex-row items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10">
+          <div className="flex flex-col w-full md:w-32">
             <label htmlFor="Category" className='pb-2'>Product category</label>
             <select name="category" id="category" className='border p-2'>
             <option value="">Select option</option>
@@ -49,13 +49,13 @@ const Dashboard = () => {
             <option value="Noodles">Noodles</option>
           </select>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col w-full md:w-32">
             <label htmlFor="Price" className='pb-2'>Product price</label>
             <input type="number" placeholder='Price' className='outline-none border p-2 bg-transparent w-full' />
           </div>
         </div>
         <button className='bg-gray-900 text-white px-5 py-2 cursor-pointer
-         shadow-md hover:bg-gray-700 transition duration-300 '>ADD</button>
+         shadow-md hover:bg-gray-700 transition duration-300 w-full md:w-32 '>ADD</button>
       </form>
     </div>
   )

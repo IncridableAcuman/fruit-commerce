@@ -80,7 +80,7 @@ const Home = () => {
       <div className="w-full max-w-6xl mx-auto">
         <h1 className="text-2xl font-semibold py-5">Top dishes near you</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-          <div className="bg-white shadow-md rounded transition-transform duration-500 ease-in-out hover:scale-110">
+          <div className="bg-white shadow-md rounded  hover:shadow-lg transition duration-300">
             <div className="relative">
             <img src="./food_1.png" alt="food" 
             className="rounded-t-2xl w-full" />

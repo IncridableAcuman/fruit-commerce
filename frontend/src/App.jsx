@@ -5,6 +5,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import { ToastContainer } from 'react-toastify';
 import Cart from './pages/Cart';
+import Contact from './pages/Contact';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
       <Route path='/forgot-password' element={<ForgotPassword/>} />
       <Route path='/reset-password' element={<ResetPassword/>} />
       <Route path='/cart' element={<Cart/>} />
+      <Route path='/contact' element={<Contact/>} />
     </Routes>
     </>
   )
