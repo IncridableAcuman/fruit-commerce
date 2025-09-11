@@ -17,7 +17,6 @@ public class ProductRequest {
     private String description;
     @NotNull(message = "Price must be required")
     private Double price;
-    @NotBlank(message = "Image must be required")
     private MultipartFile image;
     private Category category;
 }

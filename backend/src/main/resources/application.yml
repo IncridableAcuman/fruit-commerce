@@ -35,4 +35,4 @@ jwt:
   refresh_time: ${REFRESH_TIME}
 
 file:
-  upload-dir: uploads/
+  upload-dir: "uploads/"

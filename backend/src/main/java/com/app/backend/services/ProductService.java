@@ -24,15 +24,15 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    @Value("$file.upload-dir}")
+    @Value("${file.upload-dir}")
     private String uploadDir;
 
     public String saveFile(MultipartFile file){
         try {
-            String fileName=System.currentTimeMillis()+file.getOriginalFilename();
-            Path filePath= Paths.get(uploadDir,fileName);
-            Files.write(filePath,file.getBytes());
-            return "/uploads/"+fileName;
+            String file_name=System.currentTimeMillis()+file.getOriginalFilename();
+            Path file_path= Paths.get(uploadDir,file_name);
+            Files.write(file_path,file.getBytes());
+            return "/uploads/"+file_name;
         } catch (Exception e) {
             throw new BadRequestExceptionHandler("Failed to store file: "+e.getMessage());
         }
