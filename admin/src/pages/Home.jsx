@@ -22,6 +22,7 @@ const Home = () => {
           const {data} = await axiosInstance.delete(`/products/product/delete/${id}`);
           if(data){
             toast.success(data || "Deleted successfully");
+            getAllProducts();
           }
         } catch (error) {
           toast.error(error?.message || "Network Error");

@@ -29,7 +29,8 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/auth/**",
                                 "/uploads/**",
-                                "/api/products/**"
+                                "/api/products/**",
+                                "/api/carts/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
