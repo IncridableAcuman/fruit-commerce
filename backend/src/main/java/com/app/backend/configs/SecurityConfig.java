@@ -28,11 +28,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth->auth
                         .requestMatchers(
                                 "/api/auth/**",
-                                "/uploads/**"
+                                "/uploads/**",
+                                "/api/products/**"
                         ).permitAll()
-                        .requestMatchers("/api/products/product/create",
-                                "/api/products/product/update/**",
-                                "/api/products/product/delete/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session->session.

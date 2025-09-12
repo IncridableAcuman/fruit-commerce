@@ -7,7 +7,6 @@ import com.app.backend.services.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +17,6 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/product/create")
     public ResponseEntity<ProductResponse> createProduct(@Valid @ModelAttribute ProductRequest request){return ResponseEntity.status(201).body(productService.createProduct(request));}
     @GetMapping("/data/all")
@@ -27,12 +25,10 @@ public class ProductController {
     public ResponseEntity<List<ProductResponse>> getAllProductsByCategory(@PathVariable Category category){return ResponseEntity.status(200).body(productService.getAllProductsByCategory(category));}
     @GetMapping("/product/{id}")
     public ResponseEntity<ProductResponse> getProductByID(@PathVariable Long id){return ResponseEntity.status(200).body(productService.getProductByID(id));}
-    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/product/delete/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable Long id){
         productService.deleteProduct(id);
         return ResponseEntity.status(200).body("Product deleted successfully");}
-    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/product/update/{id}")
     public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id,@Valid @RequestBody ProductRequest request){return ResponseEntity.status(200).body(productService.updateProduct(id,request));}
 }
