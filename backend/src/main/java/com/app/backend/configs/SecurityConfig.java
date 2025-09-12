@@ -1,6 +1,5 @@
 package com.app.backend.configs;
 
-import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,10 +28,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth->auth
                         .requestMatchers(
                                 "/api/auth/**",
-                        "/api/products/data/all",
-                        "/api/products/categories/**",
-                        "/api/product/product/**",
-                        "/uploads/**"
+                                "/uploads/**"
                         ).permitAll()
                         .requestMatchers("/api/products/product/create",
                                 "/api/products/product/update/**",

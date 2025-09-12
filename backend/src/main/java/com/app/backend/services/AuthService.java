@@ -51,7 +51,6 @@
             tokenService.findRefreshToken(refreshToken);
             String email=jwtUtil.extractSubject(refreshToken);
             User user=userService.findUser(email);
-            tokenService.deleteToken(user);
             String newAccessToken= jwtUtil.generateAccessToken(user);
             String newRefreshToken= jwtUtil.generateRefreshToken(user);
             tokenService.regenerateToken(user,newRefreshToken);
@@ -70,8 +69,12 @@
         @Transactional
         public GetMe getMe(){
             Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
-            User user = (User) authentication.getPrincipal();
-            return new GetMe(user.getId(),user.getUsername(),user.getRole());}
+            Object principal=authentication.getPrincipal();
+            if (principal instanceof User user){
+                return new GetMe(user.getId(),user.getUsername(),user.getRole());
+            }
+            throw new UnAuthorizeExceptionHandler("Unauthorized");
+        }
         @Transactional
         public String forgotPassword(ForgotPasswordRequest request){
             User user = userService.findUser(request.getEmail());

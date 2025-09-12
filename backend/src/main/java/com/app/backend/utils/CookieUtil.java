@@ -16,6 +16,7 @@ public class CookieUtil {
         cookie.setPath("/");
         cookie.setSecure(false);
         cookie.setMaxAge(refreshTime/1000);
+        cookie.setAttribute("SameSite","Strict");
         response.addCookie(cookie);
     }
     public void clearCookie(HttpServletResponse response){
@@ -24,6 +25,7 @@ public class CookieUtil {
         cookie.setPath("/");
         cookie.setSecure(false);
         cookie.setMaxAge(0);
+        cookie.setAttribute("SameSite","Strict");
         response.addCookie(cookie);
     }
 }

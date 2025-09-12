@@ -24,9 +24,9 @@ axiosInstance.interceptors.response.use(
         if(error.response.status===401 && !originalRequest._retry){
             originalRequest._retry=true;
             try {
-                const {data} = await axiosInstance.get("/auth/refresh");
+                const {data} = await axiosInstance.get("/auth/refresh",{withCredentials:true});
                 localStorage.setItem("accessToken",data.accessToken);
-                originalRequest.config['Authorization']=`Bearer ${data.accessToken}`;
+                originalRequest.headers['Authorization']=`Bearer ${data.accessToken}`;
                 return axiosInstance.request(originalRequest);
             } catch (error) {
                 toast.error(error.message || error?.response?.message);

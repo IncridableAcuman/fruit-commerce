@@ -23,7 +23,7 @@ public class TokenService {
         Token token=new Token();
         token.setUser(user);
         token.setRefreshToken(refreshToken);
-        token.setExpiryDate(LocalDateTime.now().plusSeconds(refreshTime));
+        token.setExpiryDate(LocalDateTime.now().plusSeconds(refreshTime/1000));
         tokenRepository.save(token);
     }
     @Transactional

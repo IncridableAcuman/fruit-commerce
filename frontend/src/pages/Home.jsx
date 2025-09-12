@@ -138,7 +138,7 @@ const Home = () => {
       {/*  */}
       <div className="text-center py-5">
         <h1 className="text-3xl lg:text-5xl font-bold">For Better Expirence Download <br /> Commerce App</h1>
-        <div className="flex items-center justify-center gap-3 py-5">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-3 py-5">
           <img src="./app_store.png" alt="app store" />
           <img src="play_store.png" alt="play store" />
         </div>

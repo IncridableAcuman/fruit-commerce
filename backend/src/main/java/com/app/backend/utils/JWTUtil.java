@@ -9,27 +9,25 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
-import java.security.Key;
 import java.util.Date;
 
 @Component
 public class JWTUtil {
-    @Value("${jwt.secret}")
-    private String secret;
-    @Value("${jwt.access_time}")
-    private long accessTime;
-    @Value("${jwt.refresh_time}")
-    private long refreshTime;
+    private final   SecretKey signingKey;
+    private final long accessTime;
+    private final long refreshTime;
 
-    private final SecretKey signingKey;
 
-    public JWTUtil(@Value("${jwt.secret}") String secret){
+    public JWTUtil(
+            @Value("${jwt.secret}") String secret,
+            @Value("${jwt.access_time}") long accessTime,
+            @Value("${jwt.refresh_time}") long refreshTime
+    ){
         this.signingKey=Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+        this.accessTime=accessTime;
+        this.refreshTime=refreshTime;
     }
 
-    public Key getSigningKey(){
-        return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-    }
 //    generate token
     public String generateToken(User user,Long expirationTime){
         return Jwts
@@ -38,7 +36,7 @@ public class JWTUtil {
                 .claim("id",user.getId())
                 .claim("username",user.getUsername())
                 .claim("role",user.getRole())
-                .signWith(getSigningKey())
+                .signWith(signingKey)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis()+expirationTime))
                 .compact();
