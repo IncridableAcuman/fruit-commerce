@@ -4,8 +4,7 @@ import Footer from "../components/Footer"
 import { UseCart } from "../contexts/CartProvider"
 
 const Cart = () => {
-  const {cart} = UseCart();
-  
+  const {cart,removeCart} = UseCart();
   return (
     <>
     <Navbar/>
@@ -24,17 +23,18 @@ const Cart = () => {
               </thead>
               <tbody >
                 {
-                  cart?.itemData.map((item)=>(
-                    <tr className="border-b border-b-gray-400">
+                  cart?.itemData.map((item,index)=>(
+                    <tr className="border-b border-b-gray-400" key={index}>
                         <td className="px-4 py-3">
                           <img src={`http://localhost:8080${item?.productImage}`} alt="food" className="w-12 h-12 object-cover rounded-md" />
                         </td>
                         <td className="px-4 py-3 text-sm">{item?.productTitle}</td>
                         <td className="px-4 py-3">{item?.productPrice}$</td>
-                        <td className="px-4 py-3"><input type="number" className="w-12 border outline-none text-center" value={item?.quantity} min="1" /></td>
+                        <td className="px-4 py-3"><input type="number" className="w-12 border outline-none text-center" value={item?.quantity} min="1" readOnly /></td>
                         <td className="px-4 py-3">{item?.productPrice*item?.quantity}$</td>
-                        <td className="px-4 py-3 cursor-pointer text-gray-400 hover:text-gray-700 transition duration-300"><X size={20} /></td>
+                        <td className="px-4 py-3 cursor-pointer text-gray-400 hover:text-gray-700 transition duration-300" onClick={()=>removeCart(item?.productId)}><X size={20} /></td>
                       </tr>
+
                   ))
                 }
               </tbody>

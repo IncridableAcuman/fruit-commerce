@@ -12,12 +12,15 @@ const Navbar = () => {
 
     const handleSubmit = async ()=>{
       try {
-        await axiosInstance.post("/auth/logout");
-        localStorage.removeItem("accessToken");
+        const {data}=await axiosInstance.post("/auth/logout");
+        if(data){
+          localStorage.removeItem("accessToken");
         toast.error("Logged out.");
         navigate("/login");
+        }     
       } catch (error) {
          toast.error(error.message || "Network Error");
+         localStorage.removeItem("accessToken");
       }
     }
 

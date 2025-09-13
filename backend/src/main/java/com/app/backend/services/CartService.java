@@ -63,7 +63,7 @@ public class CartService {
     public Cart removeCart(Long userId,Long productId){
         Cart cart=getCartForUser(userId);
         cart.getCartItems().removeIf(item -> item.getProduct().getId().equals(productId));
-        Double total=cart.getCartItems().stream()
+        double total=cart.getCartItems().stream()
                 .mapToDouble(item->item.getProduct().getPrice()*item.getQuantity()).sum();
         cart.setTotal(total);
         return cartRepository.save(cart);

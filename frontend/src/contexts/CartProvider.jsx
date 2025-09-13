@@ -27,9 +27,10 @@ export const CartProvider = ({children}) => {
           userId:user?.id,
           productId,
           quantity
-        }})
+        }});
         setCart(data);
-         toast.success("Added to cart");
+        getCartForUser();
+        toast.success("Added to cart");
       } catch (error) {
         console.log(error);
       }
@@ -43,8 +44,9 @@ export const CartProvider = ({children}) => {
             productId
           }
         });
-        toast.success("Success");
         setCart(data);
+        getCartForUser();
+        toast.success("Success");
       } catch (error) {
         console.log(error);
         toast.error("Network Error");
