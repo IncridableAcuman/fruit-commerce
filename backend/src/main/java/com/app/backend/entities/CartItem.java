@@ -18,6 +18,7 @@ public class CartItem {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name="product_id",referencedColumnName="id",nullable=true)
     private Product product;
 
     @ManyToOne

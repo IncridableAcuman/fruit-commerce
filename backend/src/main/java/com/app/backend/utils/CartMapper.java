@@ -21,7 +21,7 @@ public class CartMapper {
 
     public CartItemData toItemData(CartItem item){
         return new CartItemData(
-                item.getId(),
+                item.getProduct().getId(),
                 item.getProduct().getTitle(),
                 item.getProduct().getPrice(),
                 item.getProduct().getImage(),

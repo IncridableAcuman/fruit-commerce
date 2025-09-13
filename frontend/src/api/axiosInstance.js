@@ -20,17 +20,18 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   response => response,
   async error => {
-    const originalRequest = error.config;
+    const originalRequest = false;
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        const { data } = await axiosInstance.get("/auth/refresh"); // cookie bilan yuboradi
+        const { data } = await axiosInstance.get("/auth/refresh"); 
         localStorage.setItem("accessToken", data.accessToken);
         originalRequest.headers['Authorization'] = `Bearer ${data.accessToken}`;
         return axiosInstance.request(originalRequest);
       } catch (error) {
         localStorage.removeItem("accessToken");
         toast.error("Session expired. Please login again.");
+        window.location.href="/login";
         console.log(error);
       }
     }
