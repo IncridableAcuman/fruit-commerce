@@ -12,31 +12,30 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async () => {
-    const { data } = await axiosInstance.post("/auth/login", { email, password });
-    localStorage.setItem("accessToken", data.accessToken);
-    return data;
-  };
+const handleAuth = async (endpoint, payload) => {
+  const { data } = await axiosInstance.post(`/auth/${endpoint}`, payload);
+  localStorage.setItem("accessToken", data.accessToken);
+  return data;
+};
 
-  const handleRegister = async () => {
-    const { data } = await axiosInstance.post("/auth/register", { username, email, password });
-    localStorage.setItem("accessToken", data.accessToken);
-    return data;
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      isRegister ? await handleRegister() : await handleLogin();
-      toast.success("Successfully.");
-      navigate("/");
-    } catch (error) {
-      toast.error(error.response?.data?.message || error.message);
-      localStorage.removeItem("accessToken");
-    } finally {
-      setLoading(false);
-    }
+  if (isRegister) {
+    await handleAuth("register", { username, email, password });
+  } else {
+    await handleAuth("login", { email, password });
+  }
+  toast.success("Successfully.");
+  navigate("/");
+  } catch (error) {
+    toast.error(error.response?.data?.message || error.message);
+    localStorage.removeItem("accessToken");
+  } finally {
+    setLoading(false);
+}
   };
 
   useEffect(() => {
