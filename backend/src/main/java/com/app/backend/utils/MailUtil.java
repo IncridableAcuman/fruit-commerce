@@ -11,11 +11,15 @@ public class MailUtil {
     private JavaMailSender mailSender;
 
     public void sendMail(String to,String subject,String text){
-        SimpleMailMessage message=new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(text);
-        mailSender.send(message);
+        try {
+            SimpleMailMessage message=new SimpleMailMessage();
+            message.setTo(to);
+            message.setSubject(subject);
+            message.setText(text);
+            mailSender.send(message);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 

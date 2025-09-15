@@ -1,2 +1,26 @@
 services:
+  db:
+    image: postgres:15-alpine
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 3306:5432
   
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: spring_boot_backend
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: 
+      SPRING_DATASOURCE_USER:
+      SPRING_DATASOURCE_PASSWORD: 
+    ports:
+      - 8080:8080

@@ -106,7 +106,14 @@ public class ProductService {
         Product product=productRepository.
                 findById(id).
                 orElseThrow(()->new NotFoundExceptionHandler("Product not found"));
-        create(request);
-        return productResponse(product);
+       product.setTitle(request.getTitle());
+       product.setDescription(request.getDescription());
+       product.setPrice(request.getPrice());
+       product.setCategory(request.getCategory());
+       if(request.getImage()!=null && !request.getImage().isEmpty()){
+           String imageUrl=saveFile(request.getImage());
+           product.setImage(imageUrl);
+       }
+        return productResponse(productRepository.save(product));
     }
 }
