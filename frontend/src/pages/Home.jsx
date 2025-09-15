@@ -1,4 +1,6 @@
 import { useEffect,useState } from "react";
+// eslint-disable-next-line no-unused-vars
+import {motion} from 'framer-motion';
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { CirclePlus,CircleMinus, StarHalf   } from "lucide-react";
@@ -39,7 +41,8 @@ const Home = () => {
       {/* card */}
       <div className="w-full max-w-7xl mx-auto">
         <h1 className="text-2xl font-semibold py-5">Top dishes near you</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+        <motion.section transition={{duration:0.5}}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
           {
             products.map((item)=>(
               <div key={item?.id} className="bg-white shadow-md rounded  hover:shadow-lg transition duration-300 p-4">
@@ -68,7 +71,8 @@ const Home = () => {
             </div>
             ))
           }
-        </div>
+          </div>
+        </motion.section>
       </div>
       {/*  */}
       <div className="text-center py-5">

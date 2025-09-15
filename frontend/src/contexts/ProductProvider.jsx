@@ -35,7 +35,7 @@ export const ProductProvider = ({children}) => {
 
         const updateProduct = async (id,product)=>{
           try {
-            const {data} = await axiosInstance.put(`/products/product/delete/${id}`,{product});
+            const {data} = await axiosInstance.put(`/products/product/update/${id}`,{product});
             setProducts(data);
           } catch (error) {
             toast.error(error.message || "Network Error");
@@ -48,7 +48,7 @@ export const ProductProvider = ({children}) => {
 
   return (
     <>
-    <ProductContext.Provider value={{products,getAllProductsByCategory,deleteProduct,updateProduct}}>
+    <ProductContext.Provider value={{products,getAllProductsByCategory,deleteProduct,updateProduct,getProducts}}>
         {children}
     </ProductContext.Provider>
     </>
