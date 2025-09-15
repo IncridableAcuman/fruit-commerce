@@ -30,7 +30,7 @@ const Navbar = () => {
        hover:text-green-900 transition duration-300" onClick={()=>navigate("/")}>Logo</div>
 
       <div className="hidden md:flex items-center gap-3 text-green-900">
-        <Link className='hover:text-green-700 transition duration-300'>Home</Link>
+        <Link to={"/"} className='hover:text-green-700 transition duration-300'>Home</Link>
         <Link className='hover:text-green-700 transition duration-300'>Menu</Link>
         <Link to={"/contact"} className='hover:text-green-700 transition duration-300'>Contact Us</Link>
       </div>

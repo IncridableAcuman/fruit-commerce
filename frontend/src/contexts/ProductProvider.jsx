@@ -16,6 +16,31 @@ export const ProductProvider = ({children}) => {
                 toast.error(error.message || "Network Error");
                 }
         }
+        const getAllProductsByCategory = async (category)=>{
+          try {
+            const {data} = await axiosInstance.get(`/products/categories/${category}`);
+            setProducts(data);
+          } catch (error) {
+            toast.error(error.message || "Network Error");
+          }
+        }
+        const deleteProduct = async (id)=>{
+          try {
+            const {data} = await axiosInstance.delete(`/products/product/delete/${id}`);
+            setProducts(data);
+          } catch (error) {
+            toast.error(error.message || "Network Error");
+          }
+        }
+
+        const updateProduct = async (id,product)=>{
+          try {
+            const {data} = await axiosInstance.put(`/products/product/delete/${id}`,{product});
+            setProducts(data);
+          } catch (error) {
+            toast.error(error.message || "Network Error");
+          }
+        }
 
     useEffect(()=>{
           getProducts();
@@ -23,7 +48,7 @@ export const ProductProvider = ({children}) => {
 
   return (
     <>
-    <ProductContext.Provider value={{products}}>
+    <ProductContext.Provider value={{products,getAllProductsByCategory,deleteProduct,updateProduct}}>
         {children}
     </ProductContext.Provider>
     </>
