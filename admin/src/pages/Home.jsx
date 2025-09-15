@@ -1,7 +1,7 @@
 import { X } from 'lucide-react';
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import UseProduct from "../contenxts/ProductProvider";
+import {UseProduct} from "../contexts/ProductProvider";
 
 const Home = () => {
   const {products,deleteProduct} = UseProduct();

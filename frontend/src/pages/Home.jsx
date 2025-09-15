@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { CirclePlus,CircleMinus, StarHalf   } from "lucide-react";
 import Footer from "../components/Footer";
-import MenuData from "../contexts/MenuData";
+import MenuData from "../components/MenuData";
 import { UseProduct } from "../contexts/ProductProvider";
 import { UseCart } from "../contexts/CartProvider";
+import Menu from "../components/Menu";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -13,14 +14,8 @@ const Home = () => {
   const {products}=UseProduct();
   const {addToCart}=UseCart();
 
-
-  const handleIncrease = (id)=>{
-    setCounts((prev)=>({...prev,[id]:(prev[id] || 0)+1}));
-  }
-
-  const handleDescrease = (id)=>{
-    setCounts((prev)=>({...prev,[id]:Math.max((prev[id] || 0)-1,0)}));
-  }
+  const handleIncrease = (id)=>{setCounts((prev)=>({...prev,[id]:(prev[id] || 0)+1}));}
+  const handleDescrease = (id)=>{setCounts((prev)=>({...prev,[id]:Math.max((prev[id] || 0)-1,0)}));}
 
   useEffect(() => {
     if (!localStorage.getItem("accessToken")) {
@@ -31,23 +26,7 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <div className="w-full max-w-6xl mx-auto pt-24 text-white relative">
-        <img src="/header_img.png" alt="header image" className="w-full" />
-        <div className="absolute top-1/3 left-10">
-          <h2 className="text-2xl lg:text-5xl font-semibold">Order your</h2>
-          <h2 className="text-2xl lg:text-5xl font-semibold pb-3">
-            favourite food here
-          </h2>
-          <p className="max-w-md pb-2 md:pb-5 text-xs md:text-sm">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est
-            aperiam corrupti dolores temporibus sunt soluta numquam.
-          </p>
-          <button className="bg-white text-black px-5 py-1.5 md:py-2.5 rounded-full shadow cursor-pointer hover:bg-gray-50 transition duration-300">
-            View Menu
-          </button>
-        </div>
-      </div>
-
+      <Menu/>
       <div className="w-full max-w-6xl mx-auto mt-10">
         <h1 className="text-2xl font-semibold pb-2">Explore Our Menu</h1>
         <p className="text-sm text-gray-600">
