@@ -1,43 +1,19 @@
 import { X } from 'lucide-react';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import axiosInstance from '../api/axiosInstance';
+import UseProduct from "../contenxts/ProductProvider";
 
 const Home = () => {
+  const {products,deleteProduct} = UseProduct();
       const navigate = useNavigate();
-      const [products,setProducts]=useState([]);
 
-      const getAllProducts = async ()=>{
-        try {
-          const {data} = await axiosInstance.get("/products/data/all");
-          setProducts(data);
-        } catch (error) {
-          toast.error(error.message || "Network Error");
-        }
-      }
 
-      const deleteProduct = async (id)=>{
-        try {
-          const {data} = await axiosInstance.delete(`/products/product/delete/${id}`);
-          if(data){
-            toast.success(data || "Deleted successfully");
-            getAllProducts();
-          }
-        } catch (error) {
-          toast.error(error?.message || "Network Error");
-        }
-      }
 
     useEffect(()=>{
         if(!localStorage.getItem("accessToken")){
             navigate("/login");
         }
     },[navigate]);
-
-    useEffect(()=>{
-      getAllProducts();
-    },[]);
 
   return (
     <>
