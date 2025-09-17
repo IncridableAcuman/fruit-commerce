@@ -27,6 +27,7 @@ public class OrderService {
         Order order=new Order();
         order.setOrderTime(LocalDateTime.now());
         order.setStatus(Status.PENDING);
+        order.setUser(cart.getUser());
         order.setTotalAmount(cart.getTotal());
         List<OrderItem> orderItems=cart.getCartItems()
                 .stream()
@@ -34,7 +35,7 @@ public class OrderService {
                     OrderItem item=new OrderItem();
                     item.setProduct(orderItem.getProduct());
                     item.setQuantity(orderItem.getQuantity());
-                    item.setPrice(orderItem.getCart().getTotal());
+                    item.setPrice(orderItem.getQuantity()*orderItem.getProduct().getPrice());
                     item.setOrder(order);
                      return item;
                 }).toList();
@@ -45,7 +46,7 @@ public class OrderService {
         cartRepository.save(cart);
         List<OrderItemDto> itemDtoList=orderItems.stream()
                 .map(item->new OrderItemDto(
-                        item.getId(),
+                        item.getProduct().getId(),
                         item.getQuantity(),
                         item.getPrice(),
                         item.getProduct().getTitle())).toList();
@@ -58,7 +59,7 @@ public class OrderService {
                 .map(order->{
                     List<OrderItemDto>  orderItemDtoList=order.getOrderItems()
                             .stream()
-                            .map(item->new OrderItemDto(item.getId(),
+                            .map(item->new OrderItemDto(item.getProduct().getId(),
                                     item.getQuantity(),
                                     item.getPrice(),
                                     item.getProduct().getTitle()

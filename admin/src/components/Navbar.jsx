@@ -11,7 +11,7 @@ const Navbar = () => {
       try {
         await axiosInstance.post("/auth/logout");
         localStorage.removeItem("accessToken");
-        toast.error("Logged out.");
+        toast.success("Logged out.");
         navigate("/login");
       } catch (error) {
          toast.error(error.message || "Network Error");

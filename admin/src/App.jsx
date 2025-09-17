@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import { ToastContainer } from 'react-toastify';
 import Layout from './layout/Layout';
 import Dashboard from './components/Dashboard';
+import Orders from './pages/Orders';
 
 const App = () => {
   return (
@@ -12,7 +13,8 @@ const App = () => {
     <Routes>
       <Route path='/' element={<Layout/>} >
           <Route index element={<Home/>} />  
-          <Route path='add' element={<Dashboard/>} />      
+          <Route path='add' element={<Dashboard/>} />
+          <Route path='orders' element={<Orders/>} />      
       </Route>
           <Route path='/login' element={<Login/>} />
     </Routes>

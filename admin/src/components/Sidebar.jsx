@@ -18,6 +18,10 @@ const Sidebar = () => {
                     <List size={20} />
                     <p>List items</p>
                 </Link>
+                <Link to={"/orders"} className={`flex items-center gap-3 border-y border-l p-2 hover:bg-gray-50 transition duration-300`}>
+                    <List size={20} />
+                    <p>Orders</p>
+                </Link>
             </div>
         </div>
     </div>
