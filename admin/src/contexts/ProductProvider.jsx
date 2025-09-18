@@ -27,7 +27,8 @@ export const ProductProvider = ({children}) => {
         const deleteProduct = async (id)=>{
           try {
             const {data} = await axiosInstance.delete(`/products/product/delete/${id}`);
-            setProducts(data);
+            toast.success(data || "Deleted successfully");
+            getProducts();
           } catch (error) {
             toast.error(error.message || "Network Error");
           }
@@ -35,8 +36,9 @@ export const ProductProvider = ({children}) => {
 
         const updateProduct = async (id,product)=>{
           try {
-            const {data} = await axiosInstance.put(`/products/product/update/${id}`,{product});
-            setProducts(data);
+            const {data} = await axiosInstance.put(`/products/product/update/${id}`,product);
+            toast.success(data || "Updated successfully");
+            getProducts();
           } catch (error) {
             toast.error(error.message || "Network Error");
           }

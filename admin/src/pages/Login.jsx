@@ -61,11 +61,13 @@ const Login = () => {
                                required
                                 />
                         </div>
-                        <div  className="flex items-center justify-center gap-3 border p-3
+                        <>
+                            <button type='submit' className="flex items-center justify-center gap-3 border p-3
                          cursor-pointer hover:bg-gray-50 transition duration-300 hover:text-gray-900">
                             <Send/>
-                            <button>Sign In</button>
-                        </div>
+                             Sign In
+                            </button>
+                        </>
                     </form>
                 </div>
             </div>
