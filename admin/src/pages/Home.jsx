@@ -34,7 +34,7 @@ const Home = () => {
             {
               products.map((product)=>(
                 <tr className='border bg-gray-50' key={product?.id}>
-                      <td className='px-4 py-3'><img src={`http://localhost:8080${product?.image}`} alt={product?.title} className='w-12 h-12 object-cover rounded-md' /></td>
+                      <td className='px-4 py-3 cursor-pointer' onClick={()=>navigate(`/update/${product?.id}`)}><img src={`http://localhost:8080${product?.image}`} alt={product?.title} className='w-12 h-12 object-cover rounded-md' /></td>
                       <td className='px-4 py-3'>{product?.title}</td>
                       <td className='px-4 py-3'>{product?.category}</td>
                       <td className='px-4 py-3'>{product?.price}$</td>

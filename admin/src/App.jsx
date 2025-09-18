@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import Layout from './layout/Layout';
 import Dashboard from './components/Dashboard';
 import Orders from './pages/Orders';
+import Update from './pages/Update';
 
 const App = () => {
   return (
@@ -14,7 +15,8 @@ const App = () => {
       <Route path='/' element={<Layout/>} >
           <Route index element={<Home/>} />  
           <Route path='add' element={<Dashboard/>} />
-          <Route path='orders' element={<Orders/>} />      
+          <Route path='orders' element={<Orders/>} />  
+          <Route path='update/:id' element={<Update/>} />    
       </Route>
           <Route path='/login' element={<Login/>} />
     </Routes>

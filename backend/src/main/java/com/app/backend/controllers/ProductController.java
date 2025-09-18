@@ -30,5 +30,5 @@ public class ProductController {
         productService.deleteProduct(id);
         return ResponseEntity.status(200).body("Product deleted successfully");}
     @PutMapping("/product/update/{id}")
-    public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id,@Valid @RequestBody ProductRequest request){return ResponseEntity.status(200).body(productService.updateProduct(id,request));}
+    public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id,@Valid @ModelAttribute @RequestBody ProductRequest request){return ResponseEntity.status(200).body(productService.updateProduct(id,request));}
 }
