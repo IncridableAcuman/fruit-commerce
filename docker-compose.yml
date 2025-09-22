@@ -1,26 +1,58 @@
 services:
   db:
-    image: postgres:15-alpine
+    image: postgres:15
     container_name: postgres_db
+    restart: always
     environment:
-      POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: myappdb
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    ports:
-      - 3306:5432
-  
+
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: spring_boot_backend
+    container_name: spring_backend
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:3306/myappdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 1234
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
       - db
-    environment:
-      SPRING_DATASOURCE_URL: 
-      SPRING_DATASOURCE_USER:
-      SPRING_DATASOURCE_PASSWORD: 
     ports:
-      - 8080:8080
+      - "8080:8080"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: vite_frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_API_URL: http://localhost:8080/api
+    depends_on:
+      - backend
+
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+    container_name: vite_admin
+    restart: always
+    ports:
+      - "3001:3000"
+    environment:
+      VITE_API_URL: http://localhost:8080/api
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
